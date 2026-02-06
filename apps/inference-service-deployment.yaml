@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: inference-services
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/slaclab/inference-service
+    targetRevision: main
+    path: deployments
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: lume-online-ml
+  syncPolicy:
+    automated: {}
